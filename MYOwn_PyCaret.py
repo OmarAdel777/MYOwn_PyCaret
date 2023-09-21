@@ -269,15 +269,47 @@ def train_classification_model(encoded_data, target_variable, model_type):
     plt.show()
 
     
-    
+        # Pairwise scatter plots
+    sns.pairplot(processed_data, hue=target_variable)
+    plt.show()
+
+    # Histograms for numerical features
+    numerical_features = processed_data.select_dtypes(include=['int64', 'float64']).columns
+    for feature in numerical_features:
+        sns.histplot(processed_data[feature], kde=True)
+        plt.xlabel(feature)
+        plt.show()
+
+    # Box plots by target variable
+    for feature in numerical_features:
+        sns.boxplot(x=target_variable, y=feature, data=processed_data)
+        plt.xlabel(target_variable)
+        plt.ylabel(feature)
+        plt.show()
+
+    # Count plots for categorical features
+    categorical_features = processed_data.select_dtypes(include=['object']).columns
+    for feature in categorical_features:
+        sns.countplot(x=feature, data=processed_data)
+        plt.xlabel(feature)
+        plt.xticks(rotation=45)
+        plt.show()
+
+    # Correlation heatmap
+    correlation_matrix = processed_data.corr()
+    plt.figure(figsize=(10, 8))
+    sns.heatmap(correlation_matrix, annot=True, cmap="coolwarm")
+    plt.title("Correlation Heatmap")
+    plt.show()
+
     
 
 file_path = input("Please enter the path of the file you want to upload: ")
 loaded_data = load_data(file_path)
 
 # Specify target variable and model type (classification or regression):
-target_variable = input("Please enter the path of the file you want to Predict: ")
-model_type = input("Please enter the path of the desired model type as KNeighborsClassifier ,decision_tree,random_forest, Logistic Regression,xgboost : ")  # Change this to the desired model type
+target_variable = input("Please enter the column you want to Predict: ")
+model_type = input("Please enter  the desired model type as KNeighborsClassifier ,decision_tree,random_forest, Logistic Regression,xgboost,neural_network: ")  # Change this to the desired model type
 
 
 if loaded_data is not None:
