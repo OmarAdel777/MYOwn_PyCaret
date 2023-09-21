@@ -38,7 +38,7 @@ def preprocess_data(data):
     summary = data.describe()
     print(summary)
     # droping unnecessary columns
-    data=data.drop(["User ID"],axis=1)
+    data=data.drop([input("Enter the undesired column to drop")],axis=1)
 
     numeric_features = data.select_dtypes(include=['int64', 'float64']).columns
     categorical_features = data.select_dtypes(include=['object']).columns
@@ -276,8 +276,8 @@ file_path = input("Please enter the path of the file you want to upload: ")
 loaded_data = load_data(file_path)
 
 # Specify target variable and model type (classification or regression):
-target_variable = "Purchased"
-model_type = "k_nearest_neighbors"  # Change this to the desired model type
+target_variable = input("Please enter the path of the file you want to Predict: ")
+model_type = input("Please enter the path of the desired model type as KNeighborsClassifier ,decision_tree,random_forest, Logistic Regression,xgboost : ")  # Change this to the desired model type
 
 
 if loaded_data is not None:
